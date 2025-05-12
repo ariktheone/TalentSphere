@@ -206,13 +206,3 @@ TalentSphere addresses these challenges by providing:
 ![Recruitment Screenshot](public/assets/dashboard_demo2.png)
 
 ---
-
-## License
-
-This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
-
----
-
-## Contact
-
-For questions or feedback, please contact [support@talentsphere.com](mailto:support@talentsphere.com).
