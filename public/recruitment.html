@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TalentSphere - Recruitment</title>
+    <style>
+        /* Reusing the CSS from the dashboard with some minor modifications */
+        :root {
+            --primary: #2563eb;
+            --primary-light: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --primary-bg: rgba(37, 99, 235, 0.1);
+            --secondary: #10b981;
+            --secondary-light: #34d399;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --border: #e2e8f0;
+            --sidebar-width: 250px;
+            --header-height: 60px;
+            --success: #10b981;
+            --warning: #f59e0b;
+            --danger: #ef4444;
+            --info: #3b82f6;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: #f1f5f9;
+            display: flex;
+            min-height: 100vh;
+        }
+        
+        /* Sidebar (identical to dashboard) */
+        .sidebar {
+            width: var(--sidebar-width);
+            background-color: #fff;
+            height: 100vh;
+            position: fixed;
+            left: 0;
+            top: 0;
+            overflow-y: auto;
+            border-right: 1px solid var(--border);
+            z-index: 900;
+            transition: transform 0.3s ease;
+        }
+        
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            height: var(--header-height);
+            padding: 0 1.5rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.25rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary);
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 6px;
+            margin-right: 0.5rem;
+            font-size: 0.75rem;
+        }
+        
+        .menu {
+            padding: 1.5rem 0;
+        }
+        
+        .menu-category {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            color: var(--gray);
+            font-weight: 600;
+            padding: 0.75rem 1.5rem;
+            margin-top: 1rem;
+        }
+        
+        .menu-item {
+            display: flex;
+            align-items: center;
+            padding: 0.75rem 1.5rem;
+            color: var(--gray);
+            text-decoration: none;
+            transition: background-color 0.3s, color 0.3s;
+            font-size: 0.875rem;
+        }
+        
+        .menu-item svg {
+            margin-right: 0.75rem;
+            width: 18px;
+            height: 18px;
+        }
+        
+        .menu-item.active {
+            background-color: var(--primary-bg);
+            color: var(--primary);
+            font-weight: 500;
+            position: relative;
+        }
+        
+        .menu-item.active::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background-color: var(--primary);
+        }
+        
+        .menu-item:hover {
+            background-color: rgba(0, 0, 0, 0.05);
+            color: var(--dark);
+        }
+        
+        /* Main content container */
+        .main-container {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            display: flex;
+            flex-direction: column;
+        }
+        
+        /* Header (identical to dashboard) */
+        .header {
+            height: var(--header-height);
+            background-color: #fff;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 1.5rem;
+            position: sticky;
+            top: 0;
+            z-index: 800;
+        }
+        
+        .header-left {
+            display: flex;
+            align-items: center;
+        }
+        
+        .toggle-sidebar {
+            background: none;
+            border: none;
+            cursor: pointer;
+            color: var(--gray);
+            font-size: 1.25rem;
+            margin-right: 1rem;
+            display: none;
+        }
+        
+        .search {
+            position: relative;
+        }
+        
+        .search input {
+            background-color: #f1f5f9;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 0.5rem 1rem 0.5rem 2rem;
+            font-size: 0.875rem;
+            width: 280px;
+            transition: all 0.3s;
+        }
+        
+        .search input:focus {
+            outline: none;
+            border-color: var(--primary-light);
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.25);
+        }
+        
+        .search svg {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--gray);
+            width: 14px;
+            height: 14px;
+        }
+        
+        .header-right {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+        
+        .header-action {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 1.25rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .notification-badge {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            width: 16px;
+            height: 16px;
+            background-color: var(--danger);
+            color: white;
+            border-radius: 50%;
+            font-size: 0.625rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .user-menu {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            cursor: pointer;
+        }
+        
+        .user-avatar {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            overflow: hidden;
+            background-color: var(--border);
+        }
+        
+        .user-name {
+            font-size: 0.875rem;
+            font-weight: 500;
+        }
+        
+        /* Content */
+        .content {
+            padding: 1.5rem;
+            flex: 1;
+        }
+        
+        .page-title {
+            font-size: 1.5rem;
+            margin-bottom: 1.5rem;
+            font-weight: 600;
+        }
+        
+        /* Recruitment-specific styles */
+        .recruitment-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 1.5rem;
+        }
+        
+        .job-listing-section, 
+        .candidate-pipeline {
+            background-color: #fff;
+            border-radius: 8px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            padding: 1.5rem;
+        }
+        
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+        
+        .section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+        }
+        
+        .job-listing-table,
+        .candidate-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .job-listing-table th,
+        .candidate-table th {
+            text-align: left;
+            font-size: 0.75rem;
+            color: var(--gray);
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .job-listing-table td,
+        .candidate-table td {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.875rem;
+        }
+        
+        .job-status {
+            display: inline-flex;
+            align-items: center;
+            padding: 0.25rem 0.5rem;
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        
+        .status-open {
+            background-color: rgba(16, 185, 129, 0.1);
+            color: var(--success);
+        }
+        
+        .status-closed {
+            background-color: rgba(239, 68, 68, 0.1);
+            color: var(--danger);
+        }
+        
+        .status-draft {
+            background-color: rgba(245, 158, 11, 0.1);
+            color: var(--warning);
+        }
+        
+        .job-actions {
+            display: flex;
+            gap: 0.5rem;
+        }
+        
+        .action-btn {
+            background: none;
+            border: none;
+            color: var(--gray);
+            cursor: pointer;
+            font-size: 0.875rem;
+            transition: color 0.3s;
+        }
+        
+        .action-btn:hover {
+            color: var(--primary);
+        }
+        
+        .add-job-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            font-size: 0.875rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        
+        .add-job-btn:hover {
+            background-color: var(--primary-dark);
+        }
+        
+        /* Responsive adjustments */
+        @media (max-width: 1200px) {
+            .recruitment-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (max-width: 992px) {
+            .sidebar {
+                transform: translateX(-100%);
+            }
+            
+            .main-container {
+                margin-left: 0;
+            }
+            
+            .toggle-sidebar {
+                display: block;
+            }
+        }
+    </style>
+</head>
+<body>
+    <aside class="sidebar">
+        <div class="sidebar-header">
+            <a href="index.html" class="logo">
+                <span class="logo-icon">TS</span>
+                TalentSphere
+            </a>
+        </div>
+        <nav class="menu">
+            <div class="menu-category">Main</div>
+            <a href="dashboard.html" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                Dashboard
+            </a>
+            <a href="#" class="menu-item active">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0" />
+                </svg>
+                Recruitment
+            </a>
+            <a href="onboarding.html" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Onboarding
+            </a>
+            
+            <a href="#" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Performance
+            </a>
+            <div class="menu-category">Management</div>
+            <a href="#" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                </svg>
+                Scheduling
+            </a>
+            <a href="#" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                </svg>
+                Learning
+            </a>
+            <div class="menu-category">Account</div>
+            <a href="settings.html" class="menu-item">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                </svg>
+                Settings
+            </a>
+        </nav>
+    </aside>
+
+    <main class="main-container">
+        <header class="header">
+            <div class="header-left">
+                <button class="toggle-sidebar">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+                    </svg>
+                </button>
+                <div class="search">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                    </svg>
+                    <input type="text" placeholder="Search jobs, candidates...">
+                </div>
+            </div>
+            <div class="header-right">
+                <button class="header-action">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                        <span class="notification-badge">3</span>
+                    </svg>
+                </button>
+                <div class="user-menu">
+                    <div class="user-avatar"></div>
+                    <span class="user-name">Sarah Johnson</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                    </svg>
+                </div>
+            </div>
+        </header>
+
+        <div class="content">
+            <h1 class="page-title">Recruitment</h1>
+            
+            <div class="recruitment-grid">
+                <section class="job-listing-section">
+                    <div class="section-header">
+                        <h2 class="section-title">Job Listings</h2>
+                        <button class="add-job-btn">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" width="16" height="16">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                            </svg>
+                            Add New Job
+                        </button>
+                    </div>
+                    <table class="job-listing-table">
+                        <thead>
+                            <tr>
+                                <th>Job Title</th>
+                                <th>Department</th>
+                                <th>Status</th>
+                                <th>Actions</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>Senior Software Engineer</td>
+                                <td>Engineering</td>
+                                <td>
+                                    <span class="job-status status-open">Open</span>
+                                </td>
+                                <td>
+                                    <div class="job-actions">
+                                        <button class="action-btn">View</button>
+                                        <button class="action-btn">Edit</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Product Designer</td>
+                                <td>Design</td>
+                                <td>
+                                    <span class="job-status status-draft">Draft</span>
+                                </td>
+                                <td>
+                                    <div class="job-actions">
+                                        <button class="action-btn">View</button>
+                                        <button class="action-btn">Edit</button>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Marketing Manager</td>
+                                <td>Marketing</td>
+                                <td>
+                                    <span class="job-status status-closed">Closed</span>
+                                </td>
+                                <td>
+                                    <div class="job-actions">
+                                        <button class="action-btn">View</button>
+                                        <button class="action-btn">Edit</button>
+                                    </div>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+
+                <section class="candidate-pipeline">
+                    <div class="section-header">
+                        <h2 class="section-title">Candidate Pipeline</h2>
+                    </div>
+                    <table class="candidate-table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Position</th>
+                                <th>Stage</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>John Doe</td>
+                                <td>Software Engineer</td>
+                                <td>Interview</td>
+                            </tr>
+                            <tr>
+                                <td>Emily Chen</td>
+                                <td>Product Designer</td>
+                                <td>Screening</td>
+                            </tr>
+                            <tr>
+                                <td>Michael Rodriguez</td>
+                                <td>Marketing Specialist</td>
+                                <td>Offer</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </section>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Sidebar toggle functionality
+        const toggleSidebar = document.querySelector('.toggle-sidebar');
+        const sidebar = document.querySelector('.sidebar');
+        const mainContainer = document.querySelector('.main-container');
+
+        toggleSidebar.addEventListener('click', () => {
+            sidebar.style.transform = sidebar.style.transform === 'translateX(0px)' 
+                ? 'translateX(-100%)' 
+                : 'translateX(0px)';
+            mainContainer.style.marginLeft = sidebar.style.transform === 'translateX(0px)' 
+                ? '0' 
+                : 'var(--sidebar-width)';
+        });
+    </script>
+</body>
+</html>

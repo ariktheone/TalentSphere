@@ -1,0 +1,698 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About TalentSphere - Our Mission and Journey</title>
+    <style>
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1d4ed8;
+            --secondary: #10b981;
+            --dark: #1e293b;
+            --light: #f8fafc;
+            --gray: #64748b;
+            --border: #e2e8f0;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: var(--dark);
+            line-height: 1.6;
+            background-color: var(--light);
+            overflow-x: hidden;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            position: relative;
+        }
+        
+        /* Header Styles (Same as Previous Pages) */
+        header {
+            background-color: #fff;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+        
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 1rem 0;
+        }
+        
+        .logo {
+            display: flex;
+            align-items: center;
+            font-weight: 700;
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-decoration: none;
+        }
+        
+        .logo-icon {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--primary);
+            color: white;
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            margin-right: 0.5rem;
+        }
+        
+        nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+        
+        nav a {
+            text-decoration: none;
+            color: var(--dark);
+            font-weight: 500;
+            transition: color 0.3s;
+        }
+        
+        nav a:hover {
+            color: var(--primary);
+        }
+        
+        .auth-buttons {
+            display: flex;
+            gap: 1rem;
+        }
+        
+        .btn {
+            padding: 0.5rem 1.25rem;
+            border-radius: 6px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-outline {
+            border: 1px solid var(--primary);
+            color: var(--primary);
+            background: transparent;
+        }
+        
+        .btn-outline:hover {
+            background-color: var(--primary);
+            color: white;
+        }
+        
+        .btn-primary {
+            background-color: var(--primary);
+            color: white;
+            border: 1px solid var(--primary);
+        }
+        
+        .btn-primary:hover {
+            background-color: var(--primary-dark);
+            border-color: var(--primary-dark);
+        }
+        
+        /* About Page Specific Styles */
+        .about-hero {
+            padding: 8rem 0 5rem;
+            background-color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(37, 99, 235, 0.05) 0%, rgba(16, 185, 129, 0.05) 100%);
+            transform: skewY(-6deg);
+            transform-origin: top left;
+            z-index: 1;
+        }
+        
+        .about-hero-content {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+        }
+        
+        .about-hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1.5rem;
+            color: var(--dark);
+            animation: fadeInUp 1s ease-out;
+        }
+        
+        .about-hero p {
+            font-size: 1.25rem;
+            color: var(--gray);
+            max-width: 800px;
+            margin: 0 auto 2rem;
+            animation: fadeInUp 1s ease-out 0.3s;
+            opacity: 0;
+            animation-fill-mode: forwards;
+        }
+        
+        @keyframes fadeInUp {
+            0% {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        .founder-section {
+            background-color: #fff;
+            padding: 5rem 0;
+            position: relative;
+        }
+        
+        .founder-content {
+            display: flex;
+            align-items: center;
+            gap: 4rem;
+        }
+        
+        .founder-image {
+            flex: 1;
+            position: relative;
+        }
+        
+        .founder-image img {
+            width: 100%;
+            border-radius: 12px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            transition: transform 0.5s ease;
+        }
+        
+        .founder-image:hover img {
+            transform: scale(1.05);
+        }
+        
+        .founder-details {
+            flex: 1;
+        }
+        
+        .founder-details h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .founder-details .title {
+            font-size: 1.25rem;
+            color: var(--gray);
+            margin-bottom: 1.5rem;
+        }
+        
+        .founder-quote {
+            font-style: italic;
+            color: var(--gray);
+            border-left: 4px solid var(--primary);
+            padding-left: 1rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .mission-section {
+            background-color: var(--light);
+            padding: 5rem 0;
+        }
+        
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+        
+        .mission-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 12px;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .mission-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.1);
+        }
+        
+        .mission-card-icon {
+            font-size: 3rem;
+            margin-bottom: 1.5rem;
+            color: var(--primary);
+        }
+        
+        .mission-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--dark);
+        }
+        
+        .timeline {
+            background-color: #fff;
+            padding: 5rem 0;
+            position: relative;
+        }
+        
+        .timeline-content {
+            position: relative;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .timeline-line {
+            position: absolute;
+            left: -2px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(to bottom, var(--primary) 0%, var(--secondary) 100%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            padding: 2rem 0 2rem 4rem;
+            border-bottom: 1px solid var(--border);
+        }
+        
+        .timeline-item:last-child {
+            border-bottom: none;
+        }
+        
+        .timeline-dot {
+            position: absolute;
+            left: -26px;
+            top: 2.5rem;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: white;
+            border: 4px solid var(--primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .timeline-details h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--dark);
+        }
+        
+        .timeline-details p {
+            color: var(--gray);
+        }
+        
+        .team-section {
+            background-color: var(--light);
+            padding: 5rem 0;
+        }
+        
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+        }
+        
+        .team-member {
+            background: white;
+            border-radius: 12px;
+            padding: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease;
+        }
+        
+        .team-member:hover {
+            transform: translateY(-10px);
+        }
+        
+        .team-member-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1.5rem;
+            background-color: var(--border);
+            overflow: hidden;
+        }
+        
+        .team-member-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .team-member h3 {
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .team-member p {
+            color: var(--gray);
+        }
+        
+        .cta {
+            background-color: #fff;
+            text-align: center;
+            padding: 5rem 0;
+        }
+        
+        .cta-content {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        
+        .cta h2 {
+            font-size: 2.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .cta p {
+            font-size: 1.125rem;
+            color: var(--gray);
+            margin-bottom: 2rem;
+        }
+        
+        /* Footer Styles (Same as Previous Pages) */
+        footer {
+            background-color: var(--dark);
+            color: white;
+            padding: 4rem 0 2rem;
+        }
+        
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .footer-column h3 {
+            font-size: 1.25rem;
+            margin-bottom: 1.5rem;
+            color: white;
+        }
+        
+        .footer-links {
+            list-style: none;
+        }
+        
+        .footer-links li {
+            margin-bottom: 0.75rem;
+        }
+        
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-links a:hover {
+            color: white;
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 0.875rem;
+        }
+        
+        /* Responsive Adjustments */
+        @media (max-width: 992px) {
+            .founder-content,
+            .timeline-content {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .about-hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .timeline-line {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+            
+            .timeline-item {
+                padding: 2rem 0 2rem 0;
+                text-align: center;
+            }
+            
+            .timeline-dot {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            nav ul {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <span class="logo-icon">TS</span>
+                    TalentSphere
+                </a>
+                <nav>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact</a></li>
+                    </ul>
+                </nav>
+                <div class="auth-buttons">
+                    <a href="login.html" class="btn btn-outline">Log In</a>
+                    <a href="signup.html" class="btn btn-primary">Sign Up</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="about-hero">
+            <div class="hero-background"></div>
+            <div class="container">
+                <div class="about-hero-content">
+                    <h1>Empowering Teams, Transforming Talent</h1>
+                    <p>At TalentSphere, we believe in the power of people and the potential of technology to create extraordinary workplace experiences. Our mission is to revolutionize how organizations discover, develop, and celebrate their most valuable asset: their people.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="founder-section">
+            <div class="container">
+                <div class="founder-content">
+                    <div class="founder-image">
+                        <img src="/api/placeholder/500/600" alt="Emily Rodriguez, Founder of TalentSphere">
+                    </div>
+                    <div class="founder-details">
+                        <h2>Emily Rodriguez</h2>
+                        <p class="title">Founder & CEO</p>
+                        <blockquote class="founder-quote">
+                            "Technology should empower people, not replace them. TalentSphere was born from the belief that every organization's greatest potential lies in understanding and nurturing its talent."
+                        </blockquote>
+                        <p>With over 15 years of experience in HR technology and organizational development, Emily has dedicated her career to bridging the gap between human potential and technological innovation. Her vision for TalentSphere stems from firsthand experience of the challenges faced by HR professionals and team leaders.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="mission-section">
+            <div class="container">
+                <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                    <h2>Our Core Values</h2>
+                    <p>The principles that drive everything we do at TalentSphere</p>
+                </div>
+                <div class="mission-grid">
+                    <div class="mission-card">
+                        <div class="mission-card-icon">🌟</div>
+                        <h3>Innovation</h3>
+                        <p>We constantly push the boundaries of HR technology, creating solutions that are not just current, but future-ready.</p>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-card-icon">❤️</div>
+                        <h3>Empathy</h3>
+                        <p>We understand that behind every data point is a human story, and we design our tools with genuine care and understanding.</p>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-card-icon">🤝</div>
+                        <h3>Collaboration</h3>
+                        <p>We believe in the power of collective intelligence and design platforms that bring teams closer together.</p>
+                    </div>
+                    <div class="mission-card">
+                        <div class="mission-card-icon">🛡️</div>
+                        <h3>Integrity</h3>
+                        <p>Transparency, honesty, and ethical practices are at the core of everything we do.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="timeline">
+            <div class="container">
+                <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                    <h2>Our Journey</h2>
+                    <p>The milestones that shaped TalentSphere</p>
+                </div>
+                <div class="timeline-content">
+                    <div class="timeline-line"></div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">2018</div>
+                        <div class="timeline-details">
+                            <h3>Inception</h3>
+                            <p>TalentSphere begins as a startup in San Francisco, born from the recognized need for more intuitive HR technology.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">2019</div>
+                        <div class="timeline-details">
+                            <h3>First Product Launch</h3>
+                            <p>We release our initial recruitment management platform, helping small to medium businesses streamline their hiring processes.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">2020</div>
+                        <div class="timeline-details">
+                            <h3>Pandemic Pivot</h3>
+                            <p>Rapidly developed remote work and digital onboarding features to support organizations during the global pandemic.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">2022</div>
+                        <div class="timeline-details">
+                            <h3>Enterprise Expansion</h3>
+                            <p>Launched comprehensive talent management suite, expanding our reach to large enterprises and global organizations.</p>
+                        </div>
+                    </div>
+                                        <div class="timeline-item">
+                        <div class="timeline-dot">2021</div>
+                        <div class="timeline-details">
+                            <h3>Growth & Expansion</h3>
+                            <p>We expanded to international markets and added AI-driven analytics to our platform, helping clients gain deeper workforce insights.</p>
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-dot">2023</div>
+                        <div class="timeline-details">
+                            <h3>Future Forward</h3>
+                            <p>Launched our next-gen talent development suite, embracing predictive analytics and personalized growth journeys.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="team-section">
+            <div class="container">
+                <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                    <h2>Meet the Team</h2>
+                    <p>The passionate minds behind TalentSphere</p>
+                </div>
+                <div class="team-grid">
+                    <div class="team-member">
+                        <div class="team-member-image">
+                            <img src="/api/placeholder/150/150" alt="Team Member 1">
+                        </div>
+                        <h3>Alex Nguyen</h3>
+                        <p>Chief Technology Officer</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-member-image">
+                            <img src="/api/placeholder/150/150" alt="Team Member 2">
+                        </div>
+                        <h3>Sofia Patel</h3>
+                        <p>VP of Product</p>
+                    </div>
+                    <div class="team-member">
+                        <div class="team-member-image">
+                            <img src="/api/placeholder/150/150" alt="Team Member 3">
+                        </div>
+                        <h3>Jamal Edwards</h3>
+                        <p>Head of UX Design</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="cta">
+            <div class="container">
+                <div class="cta-content">
+                    <h2>Ready to Elevate Your Talent Strategy?</h2>
+                    <p>Join thousands of organizations transforming their teams with TalentSphere.</p>
+                    <a href="signup.html" class="btn btn-primary">Get Started</a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>Company</h3>
+                    <ul class="footer-links">
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="careers.html">Careers</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Product</h3>
+                    <ul class="footer-links">
+                        <li><a href="features.html">Features</a></li>
+                        <li><a href="pricing.html">Pricing</a></li>
+                        <li><a href="demo.html">Request a Demo</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="help.html">Help Center</a></li>
+                        <li><a href="terms.html">Terms & Conditions</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                &copy; 2025 TalentSphere. All rights reserved.
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
